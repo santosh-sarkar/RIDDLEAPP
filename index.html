@@ -74,10 +74,10 @@
             }).then((jokes)=>{
                 answer.remove()
                 let question=document.querySelector('.question')
-                question.textContent = jokes.riddle
+                question.textContent = `Question: ${jokes.riddle}`
                 
                 ansButton.addEventListener('click',()=>{
-                    answer.textContent = jokes.answer
+                    answer.textContent = `Ans: ${jokes.answer}`
                     riddleContainer.append(answer)
                 })
             }).catch(()=>{
