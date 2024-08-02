@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes</title>
+    <style>
+        body{
+            background-color: burlywood;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family:system-ui, 'Segoe UI','Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .apibody{
+            background: whitesmoke;
+            box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+           max-width: 90%;
+            padding: 2%;
+            margin: auto;
+            text-align: center;
+            border-radius: 5px;
+        }
+        p{
+            font-size: large;
+            font-weight: bolder; 
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        } 
+        button{
+            background-color: burlywood;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            font-weight: bolder;
+        }
+        button:hover{
+            background-color: rgb(235, 203, 161);
+        }
+        button:active{
+            background-color: burlywood;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="apibody">
+            <h1 style="color: burlywood;">RIDDLE API USING PROMISES</h1>
+            <div class="riddle">
+                <p class="question"></p>
+            </div>
+            <button class="ans">Answer</button>
+            <button class="next-riddle">Next Riddle</button>
+    </div>
+
+    <script>
+        const jokeApi = "https://riddles-api.vercel.app/random"
+        const riddleContainer = document.querySelector('.riddle')
+        let answer=document.createElement('p')
+        const ansButton = document.querySelector('.ans')
+        const riddleButton = document.querySelector('.next-riddle')
+
+        const fetchApi =()=>{
+            fetch(jokeApi, {
+                headers: {
+                    Accept: 'application/json',
+                }
+            })
+            .then((response)=>{
+                return response.json()
+            }).then((jokes)=>{
+                answer.remove()
+                let question=document.querySelector('.question')
+                question.textContent = jokes.riddle
+                
+                ansButton.addEventListener('click',()=>{
+                    answer.textContent = jokes.answer
+                    riddleContainer.append(answer)
+                })
+            }).catch(()=>{
+                jokeContainer.textContent = "Error fetching joke"
+            })
+        }
+
+        fetchApi()
+        riddleButton.addEventListener('click',()=>{
+            fetchApi()
+        })
+    </script>
+    
+</body>
+</html>
